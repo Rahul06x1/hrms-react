@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import UserDetail from '../userdetail/userdetail'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import EmployeeDetail from '../employeedetail/employeedetail'
+import { fetchEmployees, fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import './employee.css'
 
 function Employee() {
-    const [users, setUsers] = useState([])
-    const [user, setUser] = useState([])
+    const employees = useSelector((state) => state.employee.employees)
+    const employee = useSelector((state) => state.employee.employee_detail)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        axios.get(`http://127.0.0.1:5000/employees`).then((response) => {
-            setUsers(response.data)
-        })
+        dispatch(fetchEmployees());
     }, [])
-    
+
     const userHandler = (empid) => {
-        axios.get(`http://127.0.0.1:5000/employees/${empid}`).then((response) => {
-            setUser(response.data)
-        })
+        dispatch(fetchEmployeeDetail(empid))
     }
 
     return (
         <div className='container'>
             <div className="row">
-                <div className="col-2">
+                <div className="col-3">
                     <div className="card mb-4">
                         <div className="card-body">
-                            {users.map((user) =>
-                                <div key={user.id} className="row">
+                            {employees.map((employee, index) =>
+                                <div key={employee.id} className="row">
                                     <div>
-                                        <p className="name mb-0" onClick={() => userHandler(user.id)}>{user.fname} {user.lname}</p>
+                                        <p className="name mb-0" onClick={() => userHandler(employee.id)}>{index + 1}. {employee.fname} {employee.lname}</p>
                                     </div>
                                 </div>
                             )
@@ -37,7 +36,7 @@ function Employee() {
                     </div>
                 </div>
                 <div className="col-7">
-                    {user.length !== 0 && <UserDetail user={user} />}
+                    {employee.length !== 0 && <EmployeeDetail employee={employee} />}
                 </div>
             </div>
 
