@@ -1,30 +1,36 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import './employeedetail.css'
 import Leave from '../leave/leave'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
+import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 
 
-function EmployeeDetail(props) {
-    const { employee } = props
+function EmployeeDetail() {
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
+    const employee = useSelector((state) => state.employee.employee_detail)
+
 
     const dispatch = useDispatch()
 
 
     useEffect(() => {
         // Fetch or obtain the data you want to use as the initial state
-        const fetchData = async () => {
+        const fetchLeaveData = async () => {
             const leaves_taken = employee.leaves_taken;
             const leaves_remaining = employee.total_leaves - employee.leaves_taken;
             dispatch(setInitialLeavesTaken(leaves_taken));
             dispatch(setInitialLeavesRemaining(leaves_remaining));
         };
-    
-        // Call the fetchData function
-        fetchData();
-      }, [employee,dispatch]);
+
+        // Call the fetchLeaveData function
+        fetchLeaveData();
+    }, [employee, dispatch]);
+
+    const userHandler = (empid) => {
+        dispatch(fetchEmployeeDetail(empid))
+    }
 
     return (
 
@@ -96,6 +102,8 @@ function EmployeeDetail(props) {
                 </div>
             </div>
             <Leave empid={employee.id}/>
+            <button onClick={() => userHandler(employee.prev)}>Previous</button>
+            <button onClick={() => userHandler(employee.next)}>Next</button>
         </div>
 
 

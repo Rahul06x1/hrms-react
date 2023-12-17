@@ -12,7 +12,7 @@ function Employee() {
 
     useEffect(() => {
         dispatch(fetchEmployees());
-    }, [])
+    }, [dispatch])
 
     const userHandler = (empid) => {
         dispatch(fetchEmployeeDetail(empid))
@@ -36,7 +36,7 @@ function Employee() {
                     </div>
                 </div>
                 <div className="col-7">
-                    {employee.length !== 0 && <EmployeeDetail employee={employee} />}
+                    {employee.length !== 0 && <EmployeeDetail />}
                 </div>
             </div>
 
