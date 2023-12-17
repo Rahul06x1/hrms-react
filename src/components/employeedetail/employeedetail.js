@@ -5,6 +5,7 @@ import Leave from '../leave/leave'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
 import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import Vcard from '../vcard/vcard'
+import QRCodeGenerator from '../qrcode/qrcode'
 
 
 function EmployeeDetail() {
@@ -16,7 +17,6 @@ function EmployeeDetail() {
 
 
     useEffect(() => {
-        // Fetch or obtain the data you want to use as the initial state
         const fetchLeaveData = async () => {
             const leaves_taken = employee.leaves_taken;
             const leaves_remaining = employee.total_leaves - employee.leaves_taken;
@@ -103,6 +103,7 @@ function EmployeeDetail() {
             </div>
             <Leave empid={employee.id} />
             <Vcard />
+            <QRCodeGenerator />
             <button onClick={() => userHandler(employee.prev)}>Previous</button>
             <button onClick={() => userHandler(employee.next)}>Next</button>
         </div>
