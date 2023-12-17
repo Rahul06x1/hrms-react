@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchLeave } from '../../features/leave/leaveSlice';
+import { saveLeave } from '../../features/leave/leaveSlice';
 
 
 function Leave(props) {
@@ -20,7 +20,7 @@ function Leave(props) {
     const [reason, setReason] = useState('');
     const [date, setDate] = useState(getTodayDate);
     const handleSubmit = (e) => {
-        dispatch(fetchLeave({empid,reason,date}))
+        dispatch(saveLeave({empid,reason,date}))
         console.log('assadds',leave_status)
         
         setReason('')

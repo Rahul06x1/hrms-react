@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchLeave = createAsyncThunk(
-    'leave/fetchLeave',
+export const saveLeave = createAsyncThunk(
+    'leave/saveLeave',
     async (props) => {
         const { empid, reason, date } = props
         const response = await axios.post(`http://127.0.0.1:5000//leave/${empid}`,
@@ -24,14 +24,14 @@ export const leaveSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchLeave.pending, (state, action) => {
+            .addCase(saveLeave.pending, (state, action) => {
                 state.loading = true;
             })
-            .addCase(fetchLeave.fulfilled, (state, action) => {
+            .addCase(saveLeave.fulfilled, (state, action) => {
                 state.leave_status = action.payload;
                 state.loading = false;
             })
-            .addCase(fetchLeave.rejected, (state, action) => {
+            .addCase(saveLeave.rejected, (state, action) => {
                 state.loading = false;
             })
     },
