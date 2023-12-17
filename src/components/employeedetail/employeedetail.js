@@ -1,5 +1,6 @@
 import React from 'react'
 import './employeedetail.css'
+import Leave from '../leave/leave'
 
 function EmployeeDetail(props) {
     const { employee } = props
@@ -73,6 +74,7 @@ function EmployeeDetail(props) {
                     </div>
                 </div>
             </div>
+            <Leave empid={employee.id}/>
         </div>
 
 
