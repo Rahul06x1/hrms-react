@@ -4,13 +4,13 @@ import './employeedetail.css'
 import Leave from '../leave/leave'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
 import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
+import Vcard from '../vcard/vcard'
 
 
 function EmployeeDetail() {
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
     const employee = useSelector((state) => state.employee.employee_detail)
-
 
     const dispatch = useDispatch()
 
@@ -101,7 +101,8 @@ function EmployeeDetail() {
                     </div>
                 </div>
             </div>
-            <Leave empid={employee.id}/>
+            <Leave empid={employee.id} />
+            <Vcard />
             <button onClick={() => userHandler(employee.prev)}>Previous</button>
             <button onClick={() => userHandler(employee.next)}>Next</button>
         </div>
