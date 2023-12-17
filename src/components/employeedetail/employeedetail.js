@@ -1,9 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import './employeedetail.css'
 import Leave from '../leave/leave'
+import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
+
 
 function EmployeeDetail(props) {
     const { employee } = props
+    const leaves_taken = useSelector((state) => state.leave.leaves_taken);
+    const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
+
+    const dispatch = useDispatch()
+
+
+    useEffect(() => {
+        // Fetch or obtain the data you want to use as the initial state
+        const fetchData = async () => {
+            const leaves_taken = employee.leaves_taken;
+            const leaves_remaining = employee.total_leaves - employee.leaves_taken;
+            dispatch(setInitialLeavesTaken(leaves_taken));
+            dispatch(setInitialLeavesRemaining(leaves_remaining));
+        };
+    
+        // Call the fetchData function
+        fetchData();
+      }, [employee,dispatch]);
 
     return (
 
@@ -53,7 +74,7 @@ function EmployeeDetail(props) {
                             <p className="label mb-0">Leave Taken</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="value mb-0">{employee.leaves_taken}</p>
+                            <p className="value mb-0">{leaves_taken}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -61,7 +82,7 @@ function EmployeeDetail(props) {
                             <p className="label mb-0">Leave Remaining</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="value mb-0">{employee.total_leaves - employee.leaves_taken}</p>
+                            <p className="value mb-0">{leaves_remaining}</p>
                         </div>
                     </div>
                     <div className="row">

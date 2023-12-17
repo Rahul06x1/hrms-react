@@ -2,11 +2,13 @@ import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { saveLeave } from '../../features/leave/leaveSlice';
+import { incrementLeavesTaken, decrementLeavesRemaining } from '../../features/leave/leaveSlice'
+
 
 
 function Leave(props) {
     const { empid } = props
-    
+
     const leave_status = useSelector((state) => state.leave.leave_status)
 
     const dispatch = useDispatch()
@@ -20,9 +22,15 @@ function Leave(props) {
     const [reason, setReason] = useState('');
     const [date, setDate] = useState(getTodayDate);
     const handleSubmit = (e) => {
-        dispatch(saveLeave({empid,reason,date}))
-        console.log('assadds',leave_status)
-        
+        dispatch(saveLeave({ empid, reason, date })).then(
+            response => {
+                if (response.payload.status) {
+                    dispatch(incrementLeavesTaken());
+                    dispatch(decrementLeavesRemaining());
+                }
+            }
+        )
+
         setReason('')
         setDate(getTodayDate)
         e.preventDefault();
@@ -30,34 +38,34 @@ function Leave(props) {
 
     return (
         <>
-        <form onSubmit={e => { handleSubmit(e) }}>
-            <label>Reason:</label>
-            <br />
-            <input
-                name='reason'
-                type='text'
-                value={reason}
-                onChange={e => setReason(e.target.value)}
-            />
-            <br />
-            <label>Date:</label>
-            <br />
-            <input
-                name='date'
-                type='date'
-                value={date}
-                required
-                onChange={e => setDate(e.target.value)}
-            />
-            <br />
-            <input
-                type='submit'
-                value='Submit'
-            />
-        </form>
-        {leave_status.message}
+            <form onSubmit={e => { handleSubmit(e) }}>
+                <label>Reason:</label>
+                <br />
+                <input
+                    name='reason'
+                    type='text'
+                    value={reason}
+                    onChange={e => setReason(e.target.value)}
+                />
+                <br />
+                <label>Date:</label>
+                <br />
+                <input
+                    name='date'
+                    type='date'
+                    value={date}
+                    required
+                    onChange={e => setDate(e.target.value)}
+                />
+                <br />
+                <input
+                    type='submit'
+                    value='Submit'
+                />
+            </form>
+            {leave_status.message}
         </>
-        
+
     )
 }
 
