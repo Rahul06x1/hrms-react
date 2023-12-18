@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faArrowDown, faArrowUp, faEdit, faEllipsisH, faExternalLinkAlt, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Nav, Card, Image, Button, Table, Dropdown, ProgressBar, Pagination, ButtonGroup } from '@themesberg/react-bootstrap';
@@ -7,10 +7,12 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchEmployees, fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
+import Leave from "../leave/leave";
 
 
 
 export const EmployeeDetail = () => {
+    const [leaveFormVisible, setLeaveFormVisible] = useState(false)
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
     const employee = useSelector((state) => state.employee.employee_detail)
@@ -89,7 +91,7 @@ export const EmployeeDetail = () => {
                 </MDBRow>
                 <Row >
                     <Col>
-                        <Button>Add Leave</Button>
+                        <Button onClick={() => { setLeaveFormVisible(!leaveFormVisible) }}>Add Leave</Button>
                     </Col>
                     <Col>
                         <Button>Download vCard</Button>
@@ -98,9 +100,14 @@ export const EmployeeDetail = () => {
                         <Button>Generate qrCode</Button>
                     </Col>
                 </Row>
+
             </MDBContainer>
-            <button onClick={() => userHandler(employee.prev)}>Previous</button>
-            <button onClick={() => userHandler(employee.next)}>Next</button>
+            {leaveFormVisible && <Leave />}
+            <div className="mt-3">
+                <Button onClick={() => userHandler(employee.prev)}>Previous</Button>
+                <Button onClick={() => userHandler(employee.next)}>Next</Button>
+            </div>
+
         </section>
     )
 };
