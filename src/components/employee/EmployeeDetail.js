@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchEmployees, fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
 import Leave from "../leave/leave";
+import { saveAs } from 'file-saver';
+import { fetchVcard } from '../../features/vcard/vcardSlice';
 
 
 
@@ -16,6 +18,7 @@ export const EmployeeDetail = () => {
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
     const employee = useSelector((state) => state.employee.employee_detail)
+    const vcard = useSelector((state) => state.vcard.vcard)
 
     const dispatch = useDispatch()
 
@@ -35,6 +38,12 @@ export const EmployeeDetail = () => {
     const userHandler = (empid) => {
         dispatch(fetchEmployeeDetail(empid))
     }
+
+    const downloadVcard = () => {
+        dispatch(fetchVcard(employee.id))
+        const file = new Blob([vcard.vcard], { type: 'text/plain;charset=utf-8' });
+        saveAs(file, `${employee.fname.toLowerCase()}_${employee.lname.toLowerCase()}_vcard.txt`);
+    };
 
     return (
         <section style={{ backgroundColor: '#f4f5f7' }}>
@@ -94,7 +103,7 @@ export const EmployeeDetail = () => {
                         <Button onClick={() => { setLeaveFormVisible(!leaveFormVisible) }}>Add Leave</Button>
                     </Col>
                     <Col>
-                        <Button>Download vCard</Button>
+                        <Button onClick={downloadVcard}>Download vCard</Button>
                     </Col>
                     <Col>
                         <Button>Generate qrCode</Button>
@@ -103,6 +112,7 @@ export const EmployeeDetail = () => {
 
             </MDBContainer>
             {leaveFormVisible && <Leave />}
+
             <div className="mt-3">
                 <Button onClick={() => userHandler(employee.prev)}>Previous</Button>
                 <Button onClick={() => userHandler(employee.next)}>Next</Button>
