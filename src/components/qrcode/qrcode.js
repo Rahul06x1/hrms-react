@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Modal } from '@themesberg/react-bootstrap';
-import QRCode from 'qrcode.react';
-import { fetchVcard } from '../../features/vcard/vcardSlice';
 import { useSelector, useDispatch } from 'react-redux'
+import QRCode from 'qrcode.react';
+import { Button, Modal } from '@themesberg/react-bootstrap';
+
+import { fetchVcard } from '../../features/vcard/vcardSlice';
 
 const QRCodeGenerator = () => {
     const [showDefault, setShowDefault] = useState(false);

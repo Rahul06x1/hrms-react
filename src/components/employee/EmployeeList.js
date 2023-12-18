@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
+import { Card, Table } from '@themesberg/react-bootstrap';
+
 import { fetchEmployees, fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 
-import { Card, Table } from '@themesberg/react-bootstrap';
 
 
 export const EmployeeList = () => {
     const employees = useSelector((state) => state.employee.employees)
-    // const employee = useSelector((state) => state.employee.employee_detail)
-
     const dispatch = useDispatch()
 
     useEffect(() => {

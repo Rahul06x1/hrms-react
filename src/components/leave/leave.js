@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { saveLeave } from '../../features/leave/leaveSlice';
-import { incrementLeavesTaken, decrementLeavesRemaining } from '../../features/leave/leaveSlice'
 import { Col, Row, Form, Button, Modal } from '@themesberg/react-bootstrap';
 import 'react-datetime/css/react-datetime.css';
+
+import { saveLeave } from '../../features/leave/leaveSlice';
+import { incrementLeavesTaken, decrementLeavesRemaining } from '../../features/leave/leaveSlice'
 
 
 
@@ -68,7 +69,7 @@ function Leave() {
                         </div>
                     </Form>
                 </Modal.Body>
-                
+
             </Modal>
         </>
 

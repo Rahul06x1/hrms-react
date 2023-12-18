@@ -1,5 +1,4 @@
 import './App.css';
-import Header from './components/header/header';
 import Home from './components/home/home';
 import Employee from './components/employee/Employee';
 import About from './components/about/about';
@@ -12,7 +11,6 @@ function App() {
     <div className="App">
         <Sidebar />
         <main className="content">
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/employee" element={<Employee />} />

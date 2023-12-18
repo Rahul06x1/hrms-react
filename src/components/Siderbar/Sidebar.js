@@ -4,8 +4,8 @@ import SimpleBar from 'simplebar-react';
 import { useLocation } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faBoxOpen, faChartPie, faCog, faFileAlt, faHandHoldingUsd, faSignOutAlt, faTable, faTimes, faCalendarAlt, faMapPin, faInbox, faRocket } from "@fortawesome/free-solid-svg-icons";
-import { Nav, Badge, Image, Button, Dropdown, Accordion, Navbar } from '@themesberg/react-bootstrap';
+import { faInfo, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
+import { Nav, Badge, Image, Button, Navbar } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { Routes } from "../../routes";
@@ -69,8 +69,8 @@ export default function Sidebar() {
             </div>
             <Nav className="flex-column pt-3 pt-md-0">
               <NavItem title="HRMS" link={Routes.Home.path} image={ReactHero} />
-              <NavItem title="Employee" link={Routes.Employee.path} icon={faChartPie} />
-              <NavItem title="About" icon={faCog} link={Routes.About.path} />
+              <NavItem title="Employee" link={Routes.Employee.path} icon={faUser} />
+              <NavItem title="About" link={Routes.About.path} icon={faInfo} />
             </Nav>
           </div>
         </SimpleBar>

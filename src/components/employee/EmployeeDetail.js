@@ -1,38 +1,29 @@
 import React, { useEffect, useRef } from "react";
-import { Col, Row, Button, Alert } from '@themesberg/react-bootstrap';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { useSelector, useDispatch } from 'react-redux'
+import { saveAs } from 'file-saver';
+import { Col, Row, Button, Alert } from '@themesberg/react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDoubleLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+
 import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
 import Leave from "../leave/leave";
 import QRCodeGenerator from '../qrcode/qrcode'
-import { saveAs } from 'file-saver';
 import { fetchVcard } from '../../features/vcard/vcardSlice';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 
 
 
 export const EmployeeDetail = () => {
     const prevButtonRef = useRef(null)
     const nextButtonRef = useRef(null)
+    const [hiddenAlerts, setHiddenAlerts] = React.useState([]);
+    const dispatch = useDispatch()
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
     const employee = useSelector((state) => state.employee.employee_detail)
     const vcard = useSelector((state) => state.vcard.vcard)
-
     const leave_status = useSelector((state) => state.leave.leave_status)
-    const [hiddenAlerts, setHiddenAlerts] = React.useState([]);
-    const shouldShowAlert = (alertId) => (
-        hiddenAlerts.indexOf(alertId) === -1
-    );
-    const onClose = (alertId) => {
-        const hiddenAlertsUpdated = [...hiddenAlerts, alertId];
-        setHiddenAlerts(hiddenAlertsUpdated);
-    };
-
-    const dispatch = useDispatch()
-
 
     useEffect(() => {
         const fetchLeaveData = async () => {
@@ -42,9 +33,17 @@ export const EmployeeDetail = () => {
             dispatch(setInitialLeavesRemaining(leaves_remaining));
         };
 
-        // Call the fetchLeaveData function
         fetchLeaveData();
     }, [employee, dispatch]);
+
+    const shouldShowAlert = (alertId) => (
+        hiddenAlerts.indexOf(alertId) === -1
+    );
+
+    const onClose = (alertId) => {
+        const hiddenAlertsUpdated = [...hiddenAlerts, alertId];
+        setHiddenAlerts(hiddenAlertsUpdated);
+    };
 
     const userHandler = (empid) => {
         dispatch(fetchEmployeeDetail(empid))

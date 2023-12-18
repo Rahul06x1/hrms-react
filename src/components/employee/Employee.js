@@ -1,10 +1,7 @@
 import { EmployeeDetail } from "./EmployeeDetail";
 import { EmployeeList } from "./EmployeeList";
 import { Row, Col } from '@themesberg/react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux'
-
-
-
+import { useSelector } from 'react-redux'
 
 
 export default function Employee() {
