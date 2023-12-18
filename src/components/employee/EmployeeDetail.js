@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchEmployees, fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
 import Leave from "../leave/leave";
+import QRCodeGenerator from '../qrcode/qrcode'
 import { saveAs } from 'file-saver';
 import { fetchVcard } from '../../features/vcard/vcardSlice';
 
@@ -106,12 +107,13 @@ export const EmployeeDetail = () => {
                         <Button onClick={downloadVcard}>Download vCard</Button>
                     </Col>
                     <Col>
-                        <Button>Generate qrCode</Button>
+                        <QRCodeGenerator />
                     </Col>
                 </Row>
 
             </MDBContainer>
             {leaveFormVisible && <Leave />}
+
 
             <div className="mt-3">
                 <Button onClick={() => userHandler(employee.prev)}>Previous</Button>
