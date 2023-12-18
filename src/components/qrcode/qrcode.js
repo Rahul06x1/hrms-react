@@ -39,7 +39,7 @@ const QRCodeGenerator = () => {
 
     return (
         <>
-            <Button variant="primary" className="my-3" onClick={() => {
+            <Button variant="primary" onClick={() => {
                 setShowDefault(true);
                 generateQRCode()
             }}>Generate qrCode</Button>

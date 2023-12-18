@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp, faArrowDown, faArrowUp, faEdit, faEllipsisH, faExternalLinkAlt, faEye, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Col, Row, Nav, Card, Image, Button, Table, Dropdown, ProgressBar, Pagination, ButtonGroup } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon, MDBBtn } from 'mdb-react-ui-kit';
+import React, { useEffect } from "react";
+import { Col, Row, Button, Alert } from '@themesberg/react-bootstrap';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchEmployees, fetchEmployeeDetail } from '../../features/employee/employeeSlice'
+import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
 import Leave from "../leave/leave";
 import QRCodeGenerator from '../qrcode/qrcode'
@@ -15,11 +12,20 @@ import { fetchVcard } from '../../features/vcard/vcardSlice';
 
 
 export const EmployeeDetail = () => {
-    const [leaveFormVisible, setLeaveFormVisible] = useState(false)
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
     const employee = useSelector((state) => state.employee.employee_detail)
     const vcard = useSelector((state) => state.vcard.vcard)
+
+    const leave_status = useSelector((state) => state.leave.leave_status)
+    const [hiddenAlerts, setHiddenAlerts] = React.useState([]);
+    const shouldShowAlert = (alertId) => (
+        hiddenAlerts.indexOf(alertId) === -1
+    );
+    const onClose = (alertId) => {
+        const hiddenAlertsUpdated = [...hiddenAlerts, alertId];
+        setHiddenAlerts(hiddenAlertsUpdated);
+    };
 
     const dispatch = useDispatch()
 
@@ -49,6 +55,30 @@ export const EmployeeDetail = () => {
     return (
         <section style={{ backgroundColor: '#f4f5f7' }}>
             <MDBContainer className="py-5 h-100">
+            {leave_status.length !== 0 && leave_status.status &&
+                <Alert
+                    variant="success"
+                    show={shouldShowAlert("success")}
+                    onClose={() => onClose("success")}>
+                    <div className="d-flex justify-content-between">
+                        <div>
+                            {leave_status.message}
+                        </div>
+                        <Button variant="close" size="xs" onClick={() => onClose("success")} />
+                    </div>
+                </Alert>}
+            {leave_status.length !== 0 && !leave_status.status &&
+                <Alert
+                    variant="danger"
+                    show={shouldShowAlert("danger")}
+                    onClose={() => onClose("danger")}>
+                    <div className="d-flex justify-content-between">
+                        <div>
+                            {leave_status.message}
+                        </div>
+                        <Button variant="close" size="xs" onClick={() => onClose("danger")} />
+                    </div>
+                </Alert>}
                 <MDBRow>
                     <MDBCol lg="" className="mb-4 mb-lg-0">
                         <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
@@ -101,7 +131,7 @@ export const EmployeeDetail = () => {
                 </MDBRow>
                 <Row >
                     <Col>
-                        <Button onClick={() => { setLeaveFormVisible(!leaveFormVisible) }}>Add Leave</Button>
+                        <Leave />
                     </Col>
                     <Col>
                         <Button onClick={downloadVcard}>Download vCard</Button>
@@ -112,8 +142,6 @@ export const EmployeeDetail = () => {
                 </Row>
 
             </MDBContainer>
-            {leaveFormVisible && <Leave />}
-
 
             <div className="mt-3">
                 <Button onClick={() => userHandler(employee.prev)}>Previous</Button>
