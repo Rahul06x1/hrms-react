@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Col, Row, Button, Alert } from '@themesberg/react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,10 +8,14 @@ import Leave from "../leave/leave";
 import QRCodeGenerator from '../qrcode/qrcode'
 import { saveAs } from 'file-saver';
 import { fetchVcard } from '../../features/vcard/vcardSlice';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDoubleLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 
 
 
 export const EmployeeDetail = () => {
+    const prevButtonRef = useRef(null)
+    const nextButtonRef = useRef(null)
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
     const employee = useSelector((state) => state.employee.employee_detail)
@@ -44,6 +48,8 @@ export const EmployeeDetail = () => {
 
     const userHandler = (empid) => {
         dispatch(fetchEmployeeDetail(empid))
+        prevButtonRef.current.blur();
+        nextButtonRef.current.blur();
     }
 
     const downloadVcard = () => {
@@ -53,32 +59,32 @@ export const EmployeeDetail = () => {
     };
 
     return (
-        <section style={{ backgroundColor: '#f4f5f7' }}>
+        <section >
             <MDBContainer className="py-5 h-100">
-            {leave_status.length !== 0 && leave_status.status &&
-                <Alert
-                    variant="success"
-                    show={shouldShowAlert("success")}
-                    onClose={() => onClose("success")}>
-                    <div className="d-flex justify-content-between">
-                        <div>
-                            {leave_status.message}
+                {leave_status.length !== 0 && leave_status.status &&
+                    <Alert
+                        variant="success"
+                        show={shouldShowAlert("success")}
+                        onClose={() => onClose("success")}>
+                        <div className="d-flex justify-content-between">
+                            <div>
+                                {leave_status.message}
+                            </div>
+                            <Button variant="close" size="xs" onClick={() => onClose("success")} />
                         </div>
-                        <Button variant="close" size="xs" onClick={() => onClose("success")} />
-                    </div>
-                </Alert>}
-            {leave_status.length !== 0 && !leave_status.status &&
-                <Alert
-                    variant="danger"
-                    show={shouldShowAlert("danger")}
-                    onClose={() => onClose("danger")}>
-                    <div className="d-flex justify-content-between">
-                        <div>
-                            {leave_status.message}
+                    </Alert>}
+                {leave_status.length !== 0 && !leave_status.status &&
+                    <Alert
+                        variant="danger"
+                        show={shouldShowAlert("danger")}
+                        onClose={() => onClose("danger")}>
+                        <div className="d-flex justify-content-between">
+                            <div>
+                                {leave_status.message}
+                            </div>
+                            <Button variant="close" size="xs" onClick={() => onClose("danger")} />
                         </div>
-                        <Button variant="close" size="xs" onClick={() => onClose("danger")} />
-                    </div>
-                </Alert>}
+                    </Alert>}
                 <MDBRow>
                     <MDBCol lg="" className="mb-4 mb-lg-0">
                         <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
@@ -144,8 +150,14 @@ export const EmployeeDetail = () => {
             </MDBContainer>
 
             <div className="mt-3">
-                <Button onClick={() => userHandler(employee.prev)}>Previous</Button>
-                <Button onClick={() => userHandler(employee.next)}>Next</Button>
+                <Col>
+                    <Button variant="link" onClick={() => userHandler(employee.prev)} ref={prevButtonRef}>
+                        <FontAwesomeIcon icon={faAngleDoubleLeft} />
+                    </Button>
+                    <Button variant="link" onClick={() => userHandler(employee.next)} ref={nextButtonRef}>
+                        <FontAwesomeIcon icon={faAngleDoubleRight} />
+                    </Button>
+                </Col>
             </div>
 
         </section>
