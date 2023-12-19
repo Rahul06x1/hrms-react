@@ -35,6 +35,7 @@ export const EmployeeDetail = () => {
 
         fetchLeaveData();
         dispatch(fetchVcard(employee.id))
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 
         return () => {
             setHiddenAlerts([])
