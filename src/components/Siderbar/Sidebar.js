@@ -4,7 +4,7 @@ import SimpleBar from 'simplebar-react';
 import { useLocation } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfo, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faInfo, faTimes, faUser, faHome } from "@fortawesome/free-solid-svg-icons";
 import { Nav, Badge, Image, Button, Navbar } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +46,7 @@ export default function Sidebar() {
   return (
     <>
       <Navbar expand={false} collapseOnSelect variant="dark" className="navbar-theme-primary px-4 d-md-none">
-        <Navbar.Brand className="me-lg-5" as={Link} to={Routes.Employee.path}>
+        <Navbar.Brand className="me-lg-5" as={Link} to={Routes.Home.path}>
           <Image src={ReactHero} className="navbar-brand-light" />
         </Navbar.Brand>
         <Navbar.Toggle as={Button} aria-controls="main-navbar" onClick={onCollapse}>
@@ -59,8 +59,7 @@ export default function Sidebar() {
             <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
               <div className="d-flex align-items-center">
                 <div className="d-block">
-                  <h6>Hi, Jane</h6>
-
+                  <h2>HRMS</h2>
                 </div>
               </div>
               <Nav.Link className="collapse-close d-md-none" onClick={onCollapse}>
@@ -68,7 +67,7 @@ export default function Sidebar() {
               </Nav.Link>
             </div>
             <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem title="HRMS" link={Routes.Home.path} image={ReactHero} />
+              <NavItem title="HRMS" link={Routes.Home.path} icon={faHome} />
               <NavItem title="Employee" link={Routes.Employee.path} icon={faUser} />
               <NavItem title="About" link={Routes.About.path} icon={faInfo} />
             </Nav>
