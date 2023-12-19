@@ -57,6 +57,5 @@ export const leaveSlice = createSlice({
     },
 });
 
-// export const getLoading = (state) => state.leave.loading;
 export const { incrementLeavesTaken, decrementLeavesRemaining, setInitialLeavesRemaining, setInitialLeavesTaken, emptyLeaveStatus } = leaveSlice.actions
 export default leaveSlice.reducer

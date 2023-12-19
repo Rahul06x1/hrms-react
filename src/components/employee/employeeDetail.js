@@ -67,7 +67,7 @@ export const EmployeeDetail = () => {
     return (
         <section >
             <MDBContainer className="py-5 h-100">
-                {leave_status.length !== 0 && leave_status.status &&
+                {leave_status.length !== 0 && leave_status.success &&
                     <Alert
                         variant="success"
                         show={shouldShowAlert("success")}
@@ -79,7 +79,7 @@ export const EmployeeDetail = () => {
                             <Button variant="close" size="xs" onClick={() => onClose("success")} />
                         </div>
                     </Alert>}
-                {leave_status.length !== 0 && !leave_status.status &&
+                {leave_status.length !== 0 && !leave_status.success &&
                     <Alert
                         variant="danger"
                         show={shouldShowAlert("danger")}

@@ -20,7 +20,7 @@ function Leave() {
     const handleSubmit = (e) => {
         dispatch(saveLeave({ empid, reason, date })).then(
             response => {
-                if (response.payload.status) {
+                if (response.payload.success) {
                     dispatch(incrementLeavesTaken());
                     dispatch(decrementLeavesRemaining());
                 }
