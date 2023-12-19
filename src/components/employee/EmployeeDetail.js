@@ -7,7 +7,7 @@ import { faAngleDoubleLeft, faAngleDoubleRight } from "@fortawesome/free-solid-s
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 
 import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
-import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
+import { setInitialLeavesTaken, setInitialLeavesRemaining, emptyLeaveStatus } from '../../features/leave/leaveSlice'
 import Leave from "../leave/leave";
 import QRCodeGenerator from '../qrcode/qrcode'
 import { fetchVcard } from '../../features/vcard/vcardSlice';
@@ -34,6 +34,13 @@ export const EmployeeDetail = () => {
         };
 
         fetchLeaveData();
+        dispatch(fetchVcard(employee.id))
+
+        return () => {
+            setHiddenAlerts([])
+            dispatch(emptyLeaveStatus())
+        }
+
     }, [employee, dispatch]);
 
     const shouldShowAlert = (alertId) => (
@@ -52,7 +59,6 @@ export const EmployeeDetail = () => {
     }
 
     const downloadVcard = () => {
-        dispatch(fetchVcard(employee.id))
         const file = new Blob([vcard.vcard], { type: 'text/plain;charset=utf-8' });
         saveAs(file, `${employee.fname.toLowerCase()}_${employee.lname.toLowerCase()}_vcard.txt`);
     };

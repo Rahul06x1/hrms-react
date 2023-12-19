@@ -38,6 +38,9 @@ export const leaveSlice = createSlice({
         setInitialLeavesRemaining: (state, action) => {
             state.leaves_remaining = action.payload;
         },
+        emptyLeaveStatus: (state) => {
+            state.leave_status = [];
+        },
     },
     extraReducers(builder) {
         builder
@@ -55,5 +58,5 @@ export const leaveSlice = createSlice({
 });
 
 // export const getLoading = (state) => state.leave.loading;
-export const { incrementLeavesTaken, decrementLeavesRemaining, setInitialLeavesRemaining, setInitialLeavesTaken } = leaveSlice.actions
+export const { incrementLeavesTaken, decrementLeavesRemaining, setInitialLeavesRemaining, setInitialLeavesTaken, emptyLeaveStatus } = leaveSlice.actions
 export default leaveSlice.reducer
