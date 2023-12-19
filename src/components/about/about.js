@@ -18,7 +18,7 @@ export default function About() {
         </Row>
         <Row className="justify-content-between align-items-center mb-5 mb-lg-7">
           <Col lg={5}>
-            <h2 className="d-flex align-items-center">Address</h2>
+            <h2 className="align-items-center">Address</h2>
             <p className="mb-3 lead fw-bold">
               Calicut
             </p>
