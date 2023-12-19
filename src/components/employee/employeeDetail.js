@@ -9,7 +9,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCar
 import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 import { setInitialLeavesTaken, setInitialLeavesRemaining, emptyLeaveStatus } from '../../features/leave/leaveSlice'
 import Leave from "../leave/leave";
-import QRCodeGenerator from '../qrcode/qrcode'
+import QRCodeGenerator from '../qrCode/qrCode'
 import { fetchVcard } from '../../features/vcard/vcardSlice';
 
 

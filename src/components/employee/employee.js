@@ -1,5 +1,5 @@
-import { EmployeeDetail } from "./EmployeeDetail";
-import { EmployeeList } from "./EmployeeList";
+import { EmployeeDetail } from "./employeeDetail";
+import { EmployeeList } from "./employeeList";
 import { Row, Col } from '@themesberg/react-bootstrap';
 import { useSelector } from 'react-redux'
 

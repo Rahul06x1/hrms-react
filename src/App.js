@@ -1,9 +1,9 @@
 import './App.css';
 import Home from './components/home/home';
-import Employee from './components/employee/Employee';
+import Employee from './components/employee/employee';
 import About from './components/about/about';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Sidebar from './components/Siderbar/Sidebar';
+import Sidebar from './components/sideBar/sideBar';
 import NotFound from './components/notFound/notFound';
 import "./scss/volt.scss";
 
