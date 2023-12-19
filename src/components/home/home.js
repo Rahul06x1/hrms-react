@@ -1,6 +1,6 @@
 import { Col, Row, Container, Image } from '@themesberg/react-bootstrap';
 
-import Logo from '../../assets/img/brand/brand.png'
+import Brand from '../../assets/img/brand/brand.png'
 
 export default function Home() {
   return (
@@ -8,7 +8,7 @@ export default function Home() {
       <Container>
         <Row>
           <Col xs={12} className="text-center">
-            <Image src={Logo} alt="Map image" />
+            <Image src={Brand} alt="Map image" />
             <p className="text-primary fw-light mb-5 h5">We love working with big thinkers, dreamers and doers.</p>
           </Col>
         </Row>

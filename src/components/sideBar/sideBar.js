@@ -9,7 +9,7 @@ import { Nav, Badge, Image, Button, Navbar } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { Routes } from "../../routes";
-import ReactHero from "../../assets/img/technologies/react-hero-logo.svg";
+import Brand from '../../assets/img/brand/brand.png'
 
 export default function Sidebar() {
   const location = useLocation();
@@ -47,7 +47,7 @@ export default function Sidebar() {
     <>
       <Navbar expand={false} collapseOnSelect variant="dark" className="navbar-theme-primary px-4 d-md-none">
         <Navbar.Brand className="me-lg-5" as={Link} to={Routes.Home.path}>
-          <Image src={ReactHero} className="navbar-brand-light" />
+          <Image src={Brand} className="navbar-brand-light" />
         </Navbar.Brand>
         <Navbar.Toggle as={Button} aria-controls="main-navbar" onClick={onCollapse}>
           <span className="navbar-toggler-icon" />
