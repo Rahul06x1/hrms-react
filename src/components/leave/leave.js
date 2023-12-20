@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { Col, Row, Form, Button, Modal } from '@themesberg/react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import 'react-datetime/css/react-datetime.css';
 
 import { saveLeave } from '../../features/leave/leaveSlice';

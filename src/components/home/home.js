@@ -1,4 +1,4 @@
-import { Col, Row, Container, Image } from '@themesberg/react-bootstrap';
+import { Col, Row, Container, Image } from 'react-bootstrap';
 
 import Brand from '../../assets/img/brand/brand.png'
 

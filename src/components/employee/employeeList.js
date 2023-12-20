@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { Card, Table } from '@themesberg/react-bootstrap';
+import { Card, Table } from 'react-bootstrap';
 
 import { fetchEmployees, fetchEmployeeDetail } from '../../features/employee/employeeSlice'
 

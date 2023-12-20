@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import QRCode from 'qrcode.react';
-import { Button, Modal } from '@themesberg/react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 
 import { fetchVcard } from '../../features/vcard/vcardSlice';
 

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo, faTimes, faUser, faHome } from "@fortawesome/free-solid-svg-icons";
-import { Nav, Badge, Image, Button, Navbar } from '@themesberg/react-bootstrap';
+import { Nav, Badge, Image, Button, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { Routes } from "../../routes";
