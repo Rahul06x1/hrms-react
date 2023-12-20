@@ -99,13 +99,14 @@ export const EmployeeDetail = () => {
                                     style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem', backgroundColor: '#262B40' }}>
                                     <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                                         alt="Avatar" className="my-5" style={{ width: '80px' }} fluid />
+                                    <MDBTypography tag="h6">ID {employee.id}</MDBTypography>
                                     <MDBTypography tag="h5">{employee.fname} {employee.lname}</MDBTypography>
                                     <MDBCardText>{employee.title}</MDBCardText>
                                     <MDBIcon far icon="edit mb-5" />
                                 </MDBCol>
                                 <MDBCol md="8">
                                     <MDBCardBody className="p-4">
-                                        <MDBTypography tag="h6">Information</MDBTypography>
+                                        <MDBTypography tag="h6">Personal Information</MDBTypography>
                                         <hr className="mt-0 mb-4" />
                                         <MDBRow className="pt-1">
                                             <MDBCol size="6" className="mb-3">
