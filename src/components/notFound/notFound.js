@@ -10,7 +10,7 @@ import { Routes } from "../../routes";
 import NotFoundImage from "../../assets/img/illustrations/404.svg";
 
 
-export default () => {
+export default function NotFound() {
   return (
     <main>
       <section className="vh-100 d-flex align-items-center justify-content-center">
