@@ -5,17 +5,23 @@ import { Button, Modal } from 'react-bootstrap';
 import 'react-datetime/css/react-datetime.css';
 
 import { saveLeave } from '../../features/leave/leaveSlice';
-import { incrementLeavesTaken, decrementLeavesRemaining } from '../../features/leave/leaveSlice'
+import { incrementLeavesTaken, decrementLeavesRemaining, emptyLeaveStatus } from '../../features/leave/leaveSlice'
 
 
 
 function Leave() {
     const [reason, setReason] = useState("");
     const [date, setDate] = useState("");
+    const [leaveCounter, setLeaveCounter] = useState(0);
     const [showDefault, setShowDefault] = useState(false);
     const empid = useSelector((state) => state.employee.employee_detail.id)
+    const leave_status = useSelector((state) => state.leave.leave_status)
 
-    const handleClose = () => setShowDefault(false);
+    const handleClose = () => {
+        setShowDefault(false)
+        dispatch(emptyLeaveStatus())
+        setLeaveCounter(0)
+    };
 
     const dispatch = useDispatch()
     const handleSubmit = (e) => {
@@ -24,6 +30,7 @@ function Leave() {
                 if (response.payload.success) {
                     dispatch(incrementLeavesTaken());
                     dispatch(decrementLeavesRemaining());
+                    setLeaveCounter(leaveCounter + 1)
                 }
             }
         )
@@ -64,10 +71,16 @@ function Leave() {
                                 </Form.Group>
                             </Col>
                         </Row>
-
-                        <div className="mt-3">
-                            <Button variant="primary" type="submit">Submit</Button>
-                        </div>
+                        <Row>
+                            <Col md={9} className="mb-3" >
+                                {leaveCounter === 1 && leave_status.success && <p className="text-success">{leave_status.message}</p>}
+                                {leaveCounter > 1 && leave_status.success && <p className="text-success">{leave_status.message} #{leaveCounter}</p>}
+                                {!leave_status.success && <p className="text-danger">{leave_status.message}</p>}
+                            </Col>
+                            <Col md={3} className="mb-3">
+                                <Button variant="primary" type="submit">Submit</Button>
+                            </Col>
+                        </Row>
                     </Form>
                 </Modal.Body>
 

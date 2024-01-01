@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { saveAs } from 'file-saver';
-import { Col, Row, Button, Alert } from 'react-bootstrap';
+import { Col, Row, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 
 import { fetchEmployeeDetail } from '../../features/employee/employeeSlice'
-import { setInitialLeavesTaken, setInitialLeavesRemaining, emptyLeaveStatus } from '../../features/leave/leaveSlice'
+import { setInitialLeavesTaken, setInitialLeavesRemaining } from '../../features/leave/leaveSlice'
 import Leave from "../leave/leave";
 import QRCodeGenerator from '../qrCode/qrCode'
 import { fetchVcard } from '../../features/vcard/vcardSlice';
@@ -17,13 +17,11 @@ import { fetchVcard } from '../../features/vcard/vcardSlice';
 export const EmployeeDetail = () => {
     const prevButtonRef = useRef(null)
     const nextButtonRef = useRef(null)
-    const [hiddenAlerts, setHiddenAlerts] = React.useState([]);
     const dispatch = useDispatch()
     const leaves_taken = useSelector((state) => state.leave.leaves_taken);
     const leaves_remaining = useSelector((state) => state.leave.leaves_remaining);
     const employee = useSelector((state) => state.employee.employee_detail)
     const vcard = useSelector((state) => state.vcard.vcard)
-    const leave_status = useSelector((state) => state.leave.leave_status)
 
     useEffect(() => {
         const fetchLeaveData = async () => {
@@ -37,21 +35,7 @@ export const EmployeeDetail = () => {
         dispatch(fetchVcard(employee.id))
         window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 
-        return () => {
-            setHiddenAlerts([])
-            dispatch(emptyLeaveStatus())
-        }
-
     }, [employee, dispatch]);
-
-    const shouldShowAlert = (alertId) => (
-        hiddenAlerts.indexOf(alertId) === -1
-    );
-
-    const onClose = (alertId) => {
-        const hiddenAlertsUpdated = [...hiddenAlerts, alertId];
-        setHiddenAlerts(hiddenAlertsUpdated);
-    };
 
     const userHandler = (empid) => {
         dispatch(fetchEmployeeDetail(empid))
@@ -67,30 +51,6 @@ export const EmployeeDetail = () => {
     return (
         <section >
             <MDBContainer className="py-5 h-100">
-                {leave_status.length !== 0 && leave_status.success &&
-                    <Alert
-                        variant="success"
-                        show={shouldShowAlert("success")}
-                        onClose={() => onClose("success")}>
-                        <div className="d-flex justify-content-between">
-                            <div>
-                                {leave_status.message}
-                            </div>
-                            <Button variant="close" size="xs" onClick={() => onClose("success")} />
-                        </div>
-                    </Alert>}
-                {leave_status.length !== 0 && !leave_status.success &&
-                    <Alert
-                        variant="danger"
-                        show={shouldShowAlert("danger")}
-                        onClose={() => onClose("danger")}>
-                        <div className="d-flex justify-content-between">
-                            <div>
-                                {leave_status.message}
-                            </div>
-                            <Button variant="close" size="xs" onClick={() => onClose("danger")} />
-                        </div>
-                    </Alert>}
                 <MDBRow>
                     <MDBCol lg="" className="mb-4 mb-lg-0">
                         <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
